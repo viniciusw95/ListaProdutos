@@ -120,6 +120,83 @@
 
     ]
 
+  },
+  
+  {
+
+    "productName": "Gubee Estoques",
+
+    "description": "Ferramenta de estoques",
+
+    "targetMarket": [
+
+      "Ecommerce",
+
+      "ERP",
+
+      "Lojista que não desejam possuir ecommerce"
+
+    ],
+
+    "stack": [
+
+      "Java 10",
+
+      "Python"
+
+    ]
+
+  },
+  
+  {
+
+    "productName": "Gubee Finanças",
+
+    "description": "Ferramenta de controle de gastos",
+
+    "targetMarket": [
+
+      "Ecommerce",
+
+      "ERP",
+
+      "Lojista que não desejam possuir ecommerce"
+
+    ],
+
+    "stack": [
+
+      "Java 10"
+
+    ]
+
+  },
+  
+  {
+
+    "productName": "Gubee Mobile",
+
+    "description": "Ferramenta Mobile",
+
+    "targetMarket": [
+
+      "Ecommerce",
+
+      "ERP",
+
+      "Lojista que não desejam possuir ecommerce"
+
+    ],
+
+    "stack": [
+
+      "Kotlin"
+
+    ]
+
   }
+
+
+
 
 ]	
