@@ -1,30 +1,32 @@
 package model;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Scanner;
 
-public class DAO {
-	// Parâmetro de conexão
-	boolean producao = true;
-	private String url = "/home/vinicius/Documentos/eclipse-workspace/Gubee/src/main/resources/gubee-json2.json";
+public class DAO { 	
+	private URL url = null;
+	private String filePath;
 	
-	public DAO() {
-		if (producao) {
-			
-			ClassLoader classLoader = getClass().getClassLoader();
-			url = classLoader.getResource("gubee-json2.json").getFile();   
-
+	public DAO() {	
+		getFileLocation();
+	}
+	public void getFileLocation() throws NullPointerException {
+		ClassLoader classLoader = getClass().getClassLoader();
+		url = classLoader.getResource("gubee-json2.json");
+		if (url == null) {
+			throw new NullPointerException("Arquivo JSON não encontrado no servidor.");
+		} else {
+			filePath = url.getFile();
 		}
 	}
-	
 	public String fetchData() {
 		try {
-			File file = new File(url);
+			File file = new File(filePath);
 			Scanner sc = new Scanner(file, "utf-8");
 			sc.useDelimiter("\\Z");
 			String json = sc.next(); 
 			sc.close();
-			System.out.println(file.getAbsolutePath());
 			return json;
 		} catch (Exception e) {
 			return e.toString();

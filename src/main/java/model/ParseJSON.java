@@ -3,48 +3,35 @@ package model;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
-public class ParseJSON {
-	private JSONArray arr; 
+public class ParseJSON extends JSONArray {
 	
-	public ParseJSON(String json) throws Exception {
-		try {
-			arr = new JSONArray(json);
-		} catch (Exception e) {
-			
-		}
+	public ParseJSON(String content) {
+		super(content);
+		
 	}
 	
-	public JSONArray getArr() {
-		return arr;
-	}
-	public Produto getProduto(int position) {
-		try {
-			JSONObject jo = arr.getJSONObject(position);
-			Produto produto = new Produto();
-			produto.setProductName(jo.getString("productName"));
-			produto.setDescription(jo.getString("description"));
-			produto.setStack(getArrayList(jo, "stack"));
-			produto.setTargetMarket(getArrayList(jo, "targetMarket"));
-			return produto;
-		} catch (Exception e) {
-			return null;
+	public ArrayList<String> getAttributeValues(int produto, String parameter) {
+		ArrayList<String> out = new ArrayList<String>();
+		JSONArray arr = this.getJSONObject(produto).getJSONArray(parameter);
+		for (int i=0; i < arr.length(); i++) {
+			out.add(arr.getString(i));
 		}
+		return out;
 	}
-	public ArrayList<String> getArrayList(JSONObject jo, String paramName) {
-		JSONArray ja = jo.getJSONArray(paramName);
-		ArrayList<String> arr = new ArrayList<String>();
-		for (int i=0; i < ja.length(); i++) {
-			arr.add(ja.getString(i));
+	
+	public ArrayList<String> getUniqueValues(String parameter) {
+		ArrayList<String> uniqueValues = new ArrayList<String>();
+		ArrayList<String> values;
+		for (int i = 0; i < this.length(); i++) {
+			values = getAttributeValues(i, parameter);
+			for (int j = 0; j < values.size(); j++) {
+				if (!uniqueValues .contains(values.get(j))) {
+					uniqueValues.add(values.get(j));
+				}
+			}
 		}
-		return arr;
+		return uniqueValues;
 	}
-	public ArrayList<Produto> getTodosProdutos() {
-		ArrayList<Produto> todosProdutos = new ArrayList<Produto>();
-		for (int i = 0; i < arr.length(); i++) {
-			todosProdutos.add(getProduto(i));
-		}
-		return todosProdutos;
-	}
+	
 }
